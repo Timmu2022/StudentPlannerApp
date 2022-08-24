@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StudentPlannerApp.ViewModels"
+             xmlns:model="clr-namespace:StudentPlannerApp.Models"
+             x:Class="StudentPlannerApp.Views.UserPage"
+             Title="User Profile">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddUserCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:UserViewModel" Command="{Binding LoadUserCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                <CollectionView ItemsSource="{Binding UserInfos}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:UserInfo">
+                                <Grid Padding="5">
+                                    <Frame CornerRadius="10" HasShadow="True">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Grid.RowSpan="2" Source="~/profile.jpg" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"></Image>
+                                            <StackLayout>
+                                                <Label Grid.Column="1" Text="{Binding Forename}" FontAttributes="Bold"></Label>
+                                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Surname}" VerticalOptions="End"></Label>
+                                                <Label Grid.Column="1" Text="{Binding DOB}" VerticalOptions="End"></Label>
+                                            </StackLayout>
+                                            <StackLayout VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                                <Button Text="Edit" Grid.Column="3" Command="{Binding Source={RelativeSource AncestorType={x:Type local:UserViewModel}},
+                                                    Path=UserTappedEdit}" CommandParameter="{Binding .}" VerticalOptions="End" BackgroundColor="Green"></Button>
+                                                <Button Text="Delete" Grid.Column="3" Command="{Binding Source={RelativeSource AncestorType={x:Type local:UserViewModel}},
+                                                    Path=UserTappedDelete}" CommandParameter="{Binding .}" VerticalOptions="End" BackgroundColor="Red"></Button>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+           
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

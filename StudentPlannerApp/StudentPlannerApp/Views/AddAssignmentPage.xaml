@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentPlannerApp.Views.AddAssignmentPage"
+             xmlns:local="clr-namespace:StudentPlannerApp.ViewModels"
+             Title="Add Assignment">
+
+    <ContentPage.BindingContext>
+        <local:AddAssignmentViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <ScrollView HeightRequest="3000">
+            <StackLayout Spacing="5" Padding="15">
+                <Label Text="ID" FontSize="Medium" IsEnabled="False"/>
+                <Entry Text="{Binding AssignmentInfo.AssignmentID, Mode=TwoWay}" FontSize="Medium" IsEnabled="false"/>
+                <Label Text="Text" FontSize="Medium"/>
+                <Entry Text="{Binding AssignmentInfo.AssignmentName, Mode=TwoWay}" FontSize="Medium"/>
+                <Label Text="Description" FontSize="Medium"/>
+                <Editor Text="{Binding AssignmentInfo.Description, Mode=TwoWay}" AutoSize="TextChanges"  FontSize="Medium" Margin="0"/>
+                <Label Text="Deadline" FontSize="Medium"/>
+                <DatePicker x:Name="MainDatePicker" MinimumDate="4/5/2022" MaximumDate="12/31/2022" Date="{Binding AssignmentInfo.Deadline, Mode=TwoWay}"/>
+                <!--<Editor Text="{Binding AssignmentInfo.Deadline, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"/>-->
+                <Label Text="Upload Assignment Notes" FontSize="Medium"/>
+                <Entry x:Name="EditorPath" Text="{Binding AssignmentInfo.AssignmentNotes, Mode=TwoWay}"  FontSize="Medium" Margin="0"/>
+                <Image x:Name="resultImage"/>
+                <Button x:Name="ImagePath" Text="Upload Assignment Notes" Clicked="Upload_AssignmentNotes" HorizontalOptions="FillAndExpand"></Button>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

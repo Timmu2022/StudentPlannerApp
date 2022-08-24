@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StudentPlannerApp.ViewModels"
+             xmlns:model="clr-namespace:StudentPlannerApp.Models"
+             x:Class="StudentPlannerApp.Views.AssignmentPage"
+             Title="Assignments">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddAssignmentCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView x:DataType="local:AssignmentViewModel" Command="{Binding LoadAssignmentCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                <CollectionView ItemsSource="{Binding AssignmentInfos}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:AssignmentInfo">
+                                <Grid Padding="5">
+                                    <Frame CornerRadius="10" HasShadow="True">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Grid.RowSpan="2" Source="{Binding AssignmentNotes}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"></Image>
+                                            <StackLayout>
+                                                <Label Grid.Column="1" Text="{Binding AssignmentName}" FontAttributes="Bold"></Label>
+                                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}" VerticalOptions="End"></Label>
+                                                <Label Grid.Column="1" Text="{Binding Deadline}" VerticalOptions="End"></Label>
+                                            </StackLayout>
+                                            <StackLayout VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                                <Button Text="Edit" Grid.Column="3" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                    Path=AssignmentTappedEdit}" CommandParameter="{Binding .}" VerticalOptions="End" BackgroundColor="Green"></Button>
+                                                <Button Text="Delete" Grid.Column="3" Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentViewModel}},
+                                                    Path=AssignmentTappedDelete}" CommandParameter="{Binding .}" VerticalOptions="End" BackgroundColor="Red"></Button>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Button Text="Set a Reminder" Clicked="ReminderButton_Clicked"></Button>
+            <Button Text="Share Assignment Notes" Clicked="ShareButton_Clicked1"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

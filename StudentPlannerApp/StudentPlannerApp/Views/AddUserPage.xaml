@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StudentPlannerApp.ViewModels"
+             xmlns:model="clr-namespace:StudentPlannerApp.Models"
+             x:Class="StudentPlannerApp.Views.AddUserPage"
+             Title="Add User">
+    
+    <ContentPage.BindingContext>
+        <local:AddUserViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView HeightRequest="3000">
+            <StackLayout Spacing="5" Padding="15">
+                <Label Text="ID" FontSize="Medium" IsEnabled="False"/>
+                <Entry Text="{Binding UserInfo.UserID, Mode=TwoWay}" FontSize="Medium" IsEnabled="false"/>
+                <Label Text="Forename" FontSize="Medium"/>
+                <Entry Text="{Binding UserInfo.Forename, Mode=TwoWay}" FontSize="Medium"/>
+                <Label Text="Surname" FontSize="Medium"/>
+                <Editor Text="{Binding UserInfo.Surname, Mode=TwoWay}" AutoSize="TextChanges"  FontSize="Medium" Margin="0"/>
+                <Label Text="DOB" FontSize="Medium"/>
+                <DatePicker x:Name="MainDatePicker" MinimumDate="1/1/1900" MaximumDate="12/12/2022" Date="{Binding UserInfo.DOB, Mode=TwoWay}"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
